@@ -1,0 +1,1 @@
+UPDATE libro SET disponible = true WHERE idLibro = 1;

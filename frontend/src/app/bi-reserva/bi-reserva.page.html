@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reservacion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card *ngFor="let usLibPres of usuarioLibPres">
+    <ion-card-content>
+      <div>
+        <strong>Solitante: </strong><span>{{usLibPres.nombre}} {{usLibPres.apellido}}</span>
+      </div>
+      <div>
+        <strong>Codigo: </strong><span>{{usLibPres.codigo}}</span>
+      </div>
+      <div>
+        <strong>Titulo: </strong><span>{{usLibPres.titulo}}</span>
+      </div>
+      <div>
+        <strong>Autor: </strong><span>{{usLibPres.autor}}</span>
+      </div>
+      
+      <ng-container *ngIf="!usLibPres.estadoLibro">
+        <div>
+          <strong>Devuelto: </strong><span>No</span>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="usLibPres.estadoLibro">
+        <div>
+          <strong>Devuelto: </strong><span>Si</span>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!usLibPres.estadoLibro">
+        <div>
+          <ion-button (click)="devolverLibro(usLibPres.idUsuario, usLibPres.idLibro)" color="tertiary">Devolver</ion-button>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="usLibPres.estadoLibro">
+        <div>
+          <ion-button [disabled]="true" color="tertiary">Devolver</ion-button>
+        </div>
+      </ng-container>
+
+
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>

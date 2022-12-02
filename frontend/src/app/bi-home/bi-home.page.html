@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Bibliotecario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-card *ngFor="let usLibPres of usuarioLibPres">
+    <ion-card-content>
+      <div>
+        <strong>Solitante: </strong><span>{{usLibPres.nombre}} {{usLibPres.apellido}}</span>
+      </div>
+      <div>
+        <strong>Codigo: </strong><span>{{usLibPres.codigo}}</span>
+      </div>
+      <div>
+        <strong>Titulo: </strong><span>{{usLibPres.titulo}}</span>
+      </div>
+      <div>
+        <strong>Autor: </strong><span>{{usLibPres.autor}}</span>
+      </div>
+      <div>
+        <ion-button (click)="aceptarSolicitud(usLibPres.idUsuario, usLibPres.idLibro)" color="tertiary">Aceptar</ion-button>
+        <ion-button (click)="rechazarSolicitud(usLibPres.idUsuario, usLibPres.idLibro)" color="danger">Rechazar</ion-button>
+      </div>
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>

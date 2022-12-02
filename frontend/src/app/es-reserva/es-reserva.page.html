@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reservación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-card>
+    <ion-card-content>
+      <form>
+        <ion-item>
+          <ion-label position="floating">Titulo, Autor, Codigo</ion-label>
+          <ion-input [value]="search" (input)="readSearch($event)" ></ion-input>
+          <ion-icon slot="end" color="primary" name="search-outline"></ion-icon>
+        </ion-item>
+      </form>
+      <br />
+      <ion-button (click)="busquedaLibro()" color="primary">Buscar</ion-button>
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-card *ngFor="let presLibro of presLibros">
+    <ion-card-content>
+      <div>
+        <strong>Codigo: </strong>{{presLibro.codigo}}<span></span>
+      </div>
+      <div>
+        <strong>Titulo: </strong><span>{{presLibro.titulo}}</span>
+      </div>
+      
+      <div>
+        <strong>Autor: </strong><span>{{presLibro.autor}}</span>
+      </div>
+
+      <div>
+        <strong>Estado: </strong><span>{{presLibro.estadoSolicitud}}</span>
+      </div>
+
+      <ng-container *ngIf="presLibro.estadoSolicitud == 'Aceptada'">
+        
+        <div *ngIf="presLibro.estadoLibro">
+          <strong>Devuelto: </strong><span style="color: rgb(92, 202, 77);">Si</span>
+        </div>
+
+        <div *ngIf="!presLibro.estadoLibro">
+          <strong>Devuelto: </strong><span style="color: rgb(224, 60, 60);">No</span>
+        </div>
+
+      </ng-container>
+      
+      <ng-container *ngIf="(presLibro.estadoSolicitud == 'Aceptada') || (presLibro.estadoSolicitud == 'Rechazada') || (presLibro.estadoSolicitud == 'Cancelado')">
+        <div>
+          <ion-button  color="danger" [disabled]="true"> Cancelar </ion-button>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="(presLibro.estadoSolicitud == 'Solicitado')">
+        <div>
+          <ion-button (click)="cancelarPrestamo(presLibro.idLibro)"  color="danger" [disabled]="false"> Cancelar </ion-button>
+        </div>
+      </ng-container>
+
+      
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>

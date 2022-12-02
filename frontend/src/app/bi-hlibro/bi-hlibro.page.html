@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Texto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button [routerLink]="['/bimenu/birlibro']" color="success">+ Agregar Texto</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-card *ngFor="let libro of libros">
+      <ion-card-content>
+        <div>
+          <strong>Codigo: </strong><span>{{libro.codigo}}</span>
+        </div>
+        <div>
+          <strong>Titulo: </strong><span>{{libro.titulo}}</span>
+        </div>
+        <div>
+          <strong>Autor: </strong><span>{{libro.autor}}</span>
+        </div>
+        <div>
+          <strong>Categoria: </strong><span>{{libro.tipoCategoria}}</span>
+        </div>
+
+        <div>
+          <ion-button [routerLink]="['/bimenu/bielibro', libro.idLibro]">
+            Editar
+          </ion-button>
+        </div>
+
+      </ion-card-content>
+    </ion-card>
+
+  </ion-grid>
+
+
+  
+
+</ion-content>
