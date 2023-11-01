@@ -34,18 +34,29 @@ export class BiElibroPage implements OnInit {
     
     this.id = this.activateRoute.snapshot.paramMap.get("id");
 
-    this.reserva_service.obtenerLibroActualizar(this.id).subscribe(
-      (libro: Libro) => {
-        this.libro = libro[0];
-        console.log(this.libro);
-      }
-    )
+ 
     this.fmLogin = this.fmBuilder.group({
       'titulo': new FormControl(this.test, Validators.required),
       'autor': new FormControl("", Validators.required),
       'codigo': new FormControl("", Validators.required),
       'idCategoria': new FormControl("", Validators.required)
     })
+
+    this.reserva_service.obtenerLibroActualizar(this.id).subscribe(
+      (libro: Libro) => {
+        this.libro = libro[0];
+        console.log(this.libro);
+        this.fmLogin.setValue({
+          titulo: this.libro.titulo,
+          autor: this.libro.autor,
+          codigo: this.libro.codigo,
+          idCategoria: this.libro.idCategoria
+        });
+
+      }
+    )
+
+   
 
     // console.log(this.libro);
 
