@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Administrador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="text-align: center; margin-top: 12px;">
+    <ion-button color="secondary" [routerLink]="['/menu/admin/add']" color="success">
+      <ion-icon name="add-outline"></ion-icon>
+      Añadir Usuario
+    </ion-button>    
+  </div>
+
+  <div>
+    <ion-card *ngFor="let usuario of usuarios">    
+      <ion-card-content>
+        <div>
+          <strong>Usuario: </strong><span>{{usuario.usuario}}</span>
+        </div>
+        <div>
+          <strong>Nombre: </strong><span>{{usuario.nombre}}</span>
+        </div>
+        <div>
+          <strong>Apellido: </strong><span>{{usuario.apellido}}</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- <ion-card *ngFor="let usLibPres of usuarioLibPres">
+    <ion-card-content>
+      <div>
+        <strong>Solitante: </strong><span>{{usLibPres.nombre}} {{usLibPres.apellido}}</span>
+      </div>
+      <div>
+        <strong>Codigo: </strong><span>{{usLibPres.codigo}}</span>
+      </div>
+      <div>
+        <strong>Titulo: </strong><span>{{usLibPres.titulo}}</span>
+      </div>
+      <div>
+        <strong>Autor: </strong><span>{{usLibPres.autor}}</span>
+      </div>
+      <div>
+        <ion-button (click)="aceptarSolicitud(usLibPres.idUsuario, usLibPres.idLibro)" color="tertiary">Aceptar</ion-button>
+        <ion-button (click)="rechazarSolicitud(usLibPres.idUsuario, usLibPres.idLibro)" color="danger">Rechazar</ion-button>
+      </div>
+    </ion-card-content>
+
+  </ion-card> -->
+
+</ion-content>

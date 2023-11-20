@@ -43,6 +43,9 @@ Route::get('/actulizarlibro/{id}', 'App\Http\Controllers\EstudianteController@ac
 Route::post('/actualizarguardarlibro', 'App\Http\Controllers\EstudianteController@actualizarGuardarLibro');
 
 Route::post('/desactivarlibro', 'App\Http\Controllers\EstudianteController@desactivarLibro');
+Route::post('/adduser', 'App\Http\Controllers\EstudianteController@aniadirUsuario');
+Route::get('/getusers', 'App\Http\Controllers\EstudianteController@obtenerUsuarios');
+Route::get('/getroles', 'App\Http\Controllers\EstudianteController@obtenerRoles');
 
 
 

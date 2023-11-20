@@ -22,7 +22,14 @@ const routes: Routes = [
   {
     path: 'bimenu',
     loadChildren: () => import('./bi-menu/bi-menu.module').then( m => m.BiMenuPageModule)
-  }
+  },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
+  },
+ 
+
+
 ];
 
 @NgModule({

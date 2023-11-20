@@ -7,6 +7,7 @@ import { Usuario } from '../models/usuario';
 import { PrestamoLibro } from '../models/prestamolibro';
 import { UsuarioLibPres } from '../models/usuariolibpres';
 import { Categoria } from '../models/categoria';
+import { Rol } from '../models/Rol';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +90,17 @@ export class ReservacionService {
     return this.http.get<Libro>(`${this.apiUrl}/api/actulizarlibro/${idLibro}`);
   }
 
+  obtenerUsuarios():Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.apiUrl}/api/getusers`);
+  }
+
+  guardarUsuario(data) {
+    return this.http.post(`${this.apiUrl}/api/adduser`, data);
+  }
+
+  obtenerRoles():Observable<Rol[]> {
+    return this.http.get<Rol[]>(`${this.apiUrl}/api/getroles`);
+  }
   // 
 
 }

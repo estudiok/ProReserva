@@ -23,7 +23,12 @@ export class BiElibroPage implements OnInit {
   fmLogin: FormGroup;
   categorias: Categoria[];
   
-  test: string = "perro";
+  test: string = "";
+  idCategoria: number;
+  categoriaClass: Categoria = {
+    idCategoria: 1,
+    tipoCategoria: 'Libro'
+  }
 
   constructor(
     public fmBuilder: FormBuilder,
@@ -41,7 +46,7 @@ export class BiElibroPage implements OnInit {
       'codigo': new FormControl("", Validators.required),
       'idCategoria': new FormControl("", Validators.required)
     })
-
+    this.reloadCategorias();
     this.reserva_service.obtenerLibroActualizar(this.id).subscribe(
       (libro: Libro) => {
         this.libro = libro[0];

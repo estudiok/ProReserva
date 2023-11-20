@@ -9,7 +9,7 @@ import { NavController } from '@ionic/angular';
 import { alertController } from '@ionic/core';
 import { Usuario } from '../models/usuario';
 import { ReservacionService } from '../services/reservacion.service';
-
+import { RolHelper } from '../models/roleshelp';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -67,10 +67,12 @@ export class LoginPage implements OnInit {
           } else {
             localStorage.setItem("usuario", JSON.stringify(user[0]));
             let idRol = user[0].idRol;
-            if (idRol == 1) {
-              this.navController.navigateRoot("esmenu/eshome")
-            } else {
-              this.navController.navigateRoot("bimenu/bihome")
+            if (idRol == RolHelper.estudiante) {
+              this.navController.navigateRoot("menu/eshome");
+            } else if (idRol == RolHelper.bibliotecario) {
+              this.navController.navigateRoot("menu/bihome");
+            } else if (idRol == RolHelper.admin){
+              this.navController.navigateRoot("menu/admin/home");
             }
 
           }

@@ -269,6 +269,37 @@ class EstudianteController extends Controller
         return $status;
     }
 
+    public function aniadirUsuario(Request $request){
+        $sql = "
+            INSERT INTO usuario(idRol, nombre, apellido, usuario, contrasenia) 
+            VALUES (?, ?, ?, ?, ?);        
+        ";
+
+        $status = DB::update($sql, [$request['idRol'],
+                                    $request['nombre'], 
+                                    $request['apellido'],
+                                    $request['usuario'],
+                                    $request['contrasenia']]);
+        return $status;
+    }
+
+    public function obtenerUsuarios() {
+        $data = DB::select('
+            SELECT *
+            FROM usuario;
+        ');
+
+        return $data;
+    }
+
+    public function obtenerRoles() {
+        $data = DB::select('
+            SELECT *
+            FROM rol;
+        ');
+
+        return $data;
+    }
     
 
     /**

@@ -28,11 +28,11 @@
           <ion-input formControlName="codigo"></ion-input>
         </ion-item>
         
-        <!-- <ion-item>
-          <ion-select formControlName="idCategoria" placeholder="Seleccionar Categoria">
+        <ion-item style="margin-top: 12px;">
+          <ion-select formControlName="idCategoria" placeholder="Seleccionar Categoria" [compareWith]="1">
             <ion-select-option *ngFor="let categoria of categorias" value="{{categoria.idCategoria}}">{{categoria.tipoCategoria}}</ion-select-option>
           </ion-select>
-        </ion-item> -->
+        </ion-item>
 
 
       </form>
