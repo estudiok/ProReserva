@@ -6,6 +6,8 @@ use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Laravel\Sanctum\Sanctum;
 
 class EstudianteController extends Controller
 {
@@ -24,7 +26,7 @@ class EstudianteController extends Controller
             WHERE disponible = true
             AND estado = true;
         ');
-        
+
 
         return $data;
     }
@@ -53,12 +55,28 @@ class EstudianteController extends Controller
         $sql = "
             SELECT *
             FROM usuario
-            WHERE usuario = '".$request['user']."'
-            AND contrasenia = '".$request['pass']."';
+            WHERE usuario = '".$request['user']."';
+            
         ";
+        // AND contrasenia = '".$request['pass']."';
 
+       
         $data = DB::select($sql);
-        return $data;
+        if (isset($data[0]->contrasenia)) {
+            if (password_verify($request['pass'], $data[0]->contrasenia)){
+                $token = hash('sha256', $plainTextToken = Str::random(40));
+                
+                $datafull = json_encode($data[0]);
+                $arrayData = json_decode($datafull, true);
+                $arrayData['token'] = $token;
+                DB::select("UPDATE token_custom SET token=? WHERE id_user=?;", [$arrayData['token'], $arrayData['idUsuario']]);
+
+                return json_encode([$arrayData]);
+            }
+        }
+
+        return json_encode([]);
+        // return json_encode($arrayData);
     }
 
     public function setPrestamoParcial(Request $request) {
@@ -70,7 +88,7 @@ class EstudianteController extends Controller
         // echo $status;
         return $status;
     }
-    
+
     public function setDisponibleLibro(Request $request) {
         $sql = "
             UPDATE libro SET disponible = ? WHERE idLibro = ?;
@@ -94,10 +112,10 @@ class EstudianteController extends Controller
         // echo $status;
         return $data;
     }
-    
+
     public function cancelarPrestamo(Request $request) {
         $sql = "
-            UPDATE prestamolibro 
+            UPDATE prestamolibro
             SET terminado = true, estadoSolicitud = 4
             WHERE idEstudiante = ?
             AND idLibro = ?
@@ -107,7 +125,7 @@ class EstudianteController extends Controller
         $status = DB::update($sql, [$request['idEstudiante'], $request['idLibro']]);
         return $status;
     }
-    
+
     public function reservacionPendiente(Request $request) {
         $sql = "
             SELECT libro.*, p.*,u.idUsuario, u.nombre, u.apellido, u.idRol
@@ -116,10 +134,10 @@ class EstudianteController extends Controller
             AND p.terminado = false
             AND p.estadoSolicitud = 1
             JOIN usuario u on u.idUsuario = p.idEstudiante
-            ;        
+            ;
         ";
 
-        
+
 
         $data = DB::select($sql);
         return $data;
@@ -129,7 +147,7 @@ class EstudianteController extends Controller
     public function aceptarReservacion(Request $request) {
         $sql = "
             UPDATE prestamolibro
-            SET idBlibliotecario = ?, 
+            SET idBlibliotecario = ?,
                 estadoSolicitud = ?,
                 estadoLibro = ?,
                 fechaInicio = ?,
@@ -139,11 +157,11 @@ class EstudianteController extends Controller
             AND terminado = ?;
 
         ";
-        $status = DB::update($sql, [$request['idBlibliotecario'], 
-                                    $request['estadoSolicitud'], 
-                                    $request['estadoLibro'], 
-                                    $request['fechaInicio'], 
-                                    $request['fechaFin'], 
+        $status = DB::update($sql, [$request['idBlibliotecario'],
+                                    $request['estadoSolicitud'],
+                                    $request['estadoLibro'],
+                                    $request['fechaInicio'],
+                                    $request['fechaFin'],
                                     $request['idEstudiante'],
                                     $request['idLibro'],
                                     $request['terminado']
@@ -154,7 +172,7 @@ class EstudianteController extends Controller
     public function rechazarReservacion(Request $request) {
         $sql = "
             UPDATE prestamolibro
-            SET idBlibliotecario = ?, 
+            SET idBlibliotecario = ?,
                 estadoSolicitud = ?,
                 terminado = ?
             WHERE idEstudiante = ?
@@ -162,8 +180,8 @@ class EstudianteController extends Controller
             AND terminado = ?;
         ";
 
-        $status = DB::update($sql, [$request['idBlibliotecario'], 
-                                    $request['estadoSolicitud'], 
+        $status = DB::update($sql, [$request['idBlibliotecario'],
+                                    $request['estadoSolicitud'],
                                     $request['terminadoUser'],
                                     $request['idEstudiante'],
                                     $request['idLibro'],
@@ -208,7 +226,7 @@ class EstudianteController extends Controller
     }
 
 
-    
+
 
     public function obtenerTodosLibros(Request $request) {
         $data = DB::select("
@@ -219,7 +237,7 @@ class EstudianteController extends Controller
         return $data;
     }
 
-    
+
     public function obtenerCategoriaLibro(Request $request) {
         $data = DB::select('SELECT * FROM categoria;');
         return $data;
@@ -237,7 +255,7 @@ class EstudianteController extends Controller
         $data = DB::select('SELECT * FROM libro WHERE idLibro = ?;', [$id]);
         return $data;
     }
-    
+
     public function actualizarGuardarLibro(Request $request) {
         $sql = "
         UPDATE libro
@@ -248,9 +266,9 @@ class EstudianteController extends Controller
         WHERE idLibro = ?;
         ";
 
-        $status = DB::update($sql, [$request['idCategoria'], 
-                                    $request['titulo'], 
-                                    $request['autor'], 
+        $status = DB::update($sql, [$request['idCategoria'],
+                                    $request['titulo'],
+                                    $request['autor'],
                                     $request['codigo'],
                                     $request['idLibro']]);
         return $status;
@@ -264,19 +282,19 @@ class EstudianteController extends Controller
             WHERE idLibro = ?;
         ";
 
-        $status = DB::update($sql, [$request['estado'], 
+        $status = DB::update($sql, [$request['estado'],
                                     $request['idLibro']]);
         return $status;
     }
 
     public function aniadirUsuario(Request $request){
         $sql = "
-            INSERT INTO usuario(idRol, nombre, apellido, usuario, contrasenia) 
-            VALUES (?, ?, ?, ?, ?);        
+            INSERT INTO usuario(idRol, nombre, apellido, usuario, contrasenia)
+            VALUES (?, ?, ?, ?, ?);
         ";
 
         $status = DB::update($sql, [$request['idRol'],
-                                    $request['nombre'], 
+                                    $request['nombre'],
                                     $request['apellido'],
                                     $request['usuario'],
                                     $request['contrasenia']]);
@@ -300,7 +318,7 @@ class EstudianteController extends Controller
 
         return $data;
     }
-    
+
 
     /**
      * Show the form for creating a new resource.

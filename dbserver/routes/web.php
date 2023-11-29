@@ -12,7 +12,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware(['tokentiddleware'])->group(function () {
+    Route::get('/', function () {
+        $passpro = bcrypt('jculbi');
+        var_dump($passpro);
+    
+        // if (password_verify('padad', $passpro)) {
+        //     var_dump('entro rata');
+        // }
+    
+        return '';
+        // return view('welcome');
+    });
 
-Route::get('/', function () {
-    return view('welcome');
 });
+

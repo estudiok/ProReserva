@@ -14,14 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 
-Route::get('/reservacion', 'App\Http\Controllers\EstudianteController@index');
-Route::post('/libro', 'App\Http\Controllers\EstudianteController@libroSearch');
+
 Route::post('/getuser', 'App\Http\Controllers\EstudianteController@getCredentials');
+Route::post('/libro', 'App\Http\Controllers\EstudianteController@libroSearch');
+
+Route::middleware(['tokentiddleware'])->group(function () {
+    
+    Route::get('/reservacion', 'App\Http\Controllers\EstudianteController@index');
+});
+
+
 Route::post('/setpartial', 'App\Http\Controllers\EstudianteController@setPrestamoParcial');
 Route::post('/disponiblebook', 'App\Http\Controllers\EstudianteController@setDisponibleLibro');
 Route::post('/listprestamo', 'App\Http\Controllers\EstudianteController@listPrestamosEstudiantes');
