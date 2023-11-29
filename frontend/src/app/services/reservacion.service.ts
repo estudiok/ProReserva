@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Libro } from '../models/libro';
@@ -20,16 +20,26 @@ export class ReservacionService {
 
   constructor(private http: HttpClient) { }
 
+  private getHeaders(): HttpHeaders {
+    const authToken = (JSON.parse(localStorage.getItem('usuario')) as Usuario).token;
+    return new HttpHeaders({
+      'Authorization': `${authToken}`,
+      'Content-Type': 'application/json',
+    });
+  }
+
+
   obtenerLibrosDisponibles():Observable<Libro[]> {
-    return this.http.get<Libro[]>(`${this.apiUrl}/api/reservacion`);
+    const headers = this.getHeaders();
+    return this.http.get<Libro[]>(`${this.apiUrl}/api/reservacion`, {headers});
   }
 
   busquedaLibro(dataSearch: string):Observable<Libro[]> {
-
     return this.http.post<Libro[]>(`${this.apiUrl}/api/libro`, {dato: dataSearch});
   }
 
   obtenerCredencial(data):Observable<Usuario> {
+    // const headers = this.getHeaders();
     return this.http.post<Usuario>(`${this.apiUrl}/api/getuser`, data);
   }
 

@@ -6,6 +6,7 @@ export class Usuario {
     apellido:string;
     usuario:string;
     contrasenia:string;
+    token:string;
 }
 
 
