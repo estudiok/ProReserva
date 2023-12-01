@@ -319,6 +319,30 @@ class EstudianteController extends Controller
         return $data;
     }
 
+    public function obtenerReporteCantidad() {
+        $data = DB::selectOne("
+        SELECT
+        COUNT(CASE WHEN r.tipoRol = 'Estudiante' THEN 1 END) AS cantEstudiantes,
+        COUNT(CASE WHEN r.tipoRol = 'Bibliotecario' THEN 1 END) AS cantBibliotecarios
+        FROM
+            usuario JOIN rol r on r.idRol = usuario.idRol;
+        ");
+
+    return $data;
+
+    }
+
+    public function obetenerReporteCategoria() {
+        $data = DB::selectOne("
+            SELECT
+            COUNT(CASE WHEN c.idCategoria = 1 THEN 1 END) AS libros,
+            COUNT(CASE WHEN c.idCategoria = 2 THEN 1 END) AS tesis,
+            COUNT(CASE WHEN c.idCategoria = 3 THEN 1 END) AS revistas
+            FROM libro l JOIN categoria c on c.idCategoria = l.idCategoria;
+        ");
+
+        return $data;
+    }
 
     /**
      * Show the form for creating a new resource.

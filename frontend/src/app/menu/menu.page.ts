@@ -46,6 +46,11 @@ export class MenuPage implements OnInit {
       title: 'Home',
       url: '/menu/admin/home',
       icon: 'home'
+    },
+    {
+      title: 'Reportes',
+      url: '/menu/admin/reporteschart',
+      icon: 'pie-chart'
     }
   ]
 

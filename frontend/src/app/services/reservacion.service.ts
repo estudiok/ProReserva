@@ -111,6 +111,14 @@ export class ReservacionService {
   obtenerRoles():Observable<Rol[]> {
     return this.http.get<Rol[]>(`${this.apiUrl}/api/getroles`);
   }
+
+  obtenerCantidaReporte():Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/api/getcantidadreport`);
+  }
+
+  obtenerCantidaCategoria():Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/api/getcantcategoria`);
+  }
   // 
 
 }

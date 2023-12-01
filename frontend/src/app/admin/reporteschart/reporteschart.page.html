@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reportes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Cantidad de Roles</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <div id="chart">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [labels]="chartOptions.labels"
+          [responsive]="chartOptions.responsive"
+        ></apx-chart>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Categoria de Libros</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div>
+        <apx-chart
+        [series]="chartOptionsDona.series"
+        [chart]="chartOptionsDona.chart"
+        [labels]="chartOptionsDona.labels"
+        [responsive]="chartOptionsDona.responsive"
+      ></apx-chart>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  
+
+</ion-content>

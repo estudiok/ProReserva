@@ -55,6 +55,8 @@ Route::post('/desactivarlibro', 'App\Http\Controllers\EstudianteController@desac
 Route::post('/adduser', 'App\Http\Controllers\EstudianteController@aniadirUsuario');
 Route::get('/getusers', 'App\Http\Controllers\EstudianteController@obtenerUsuarios');
 Route::get('/getroles', 'App\Http\Controllers\EstudianteController@obtenerRoles');
+Route::get('/getcantidadreport', 'App\Http\Controllers\EstudianteController@obtenerReporteCantidad');
+Route::get('/getcantcategoria', 'App\Http\Controllers\EstudianteController@obetenerReporteCategoria');
 
 
 
