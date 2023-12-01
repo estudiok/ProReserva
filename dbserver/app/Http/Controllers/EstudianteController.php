@@ -297,7 +297,7 @@ class EstudianteController extends Controller
                                     $request['nombre'],
                                     $request['apellido'],
                                     $request['usuario'],
-                                    $request['contrasenia']]);
+                                    bcrypt($request['contrasenia'])]);
         return $status;
     }
 
