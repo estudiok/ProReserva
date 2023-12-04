@@ -57,6 +57,7 @@ Route::get('/getusers', 'App\Http\Controllers\EstudianteController@obtenerUsuari
 Route::get('/getroles', 'App\Http\Controllers\EstudianteController@obtenerRoles');
 Route::get('/getcantidadreport', 'App\Http\Controllers\EstudianteController@obtenerReporteCantidad');
 Route::get('/getcantcategoria', 'App\Http\Controllers\EstudianteController@obetenerReporteCategoria');
+Route::post('/filterreserva', 'App\Http\Controllers\EstudianteController@filterReservacion');
 
 
 

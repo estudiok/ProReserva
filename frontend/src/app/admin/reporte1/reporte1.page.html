@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reporte Reservacion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="margin-top: 20px; text-align: center;">
+    <input type="date" [(ngModel)]="dateInicio"> a
+    <input type="date" [(ngModel)]="dateFin">
+  </div>
+  <div style="margin-top: 10px; text-align: center; margin-left: 50px; margin-right: 50px;">
+    <ion-select [(ngModel)]="selectDefault.code">
+      <ion-select-option *ngFor="let option of options" [value]="option.code">{{option.name}}</ion-select-option>
+    </ion-select>
+  </div>
+  <div style="text-align: center; margin-top: 10px;">
+    <ion-button (click)="sendFilter()">Enviar</ion-button>
+    
+    <ion-button shape="round" fill="outline" (click)="descargarDocumento()">
+      <ion-icon name="print-outline"></ion-icon>
+    </ion-button>
+  </div>
+   <ion-card *ngFor="let reserva of reservaObject">
+    <ion-card-content>
+      <div>
+        <strong>Reservado por: </strong><span>{{reserva.nombre}} {{reserva.apellido}}</span>
+      </div>
+      <div>
+        <strong>Libro: </strong><span>{{reserva.titulo}}</span>
+      </div>
+      <div>
+        <strong>Codigo Libro: </strong><span>{{reserva.codigo}}</span>
+      </div>
+      <div>
+        <strong>Autor Libro: </strong><span>{{reserva.autor}}</span>
+      </div>
+      <div>
+        <strong>Fecha de solicitud: </strong><span>{{reserva.fechaSolicitud}}</span>
+      </div>
+      <div>
+        <strong>Estado: </strong><span>{{reserva.estadoPrestamo}}</span>
+      </div>
+      
+    </ion-card-content>
+  </ion-card>
+
+  
+
+</ion-content>

@@ -344,6 +344,24 @@ class EstudianteController extends Controller
         return $data;
     }
 
+    public function filterReservacion(Request $request){
+        $data = DB::select("
+                select
+                *, IF(p.estadoLibro = 1, 'Devuelto', 'Prestado') as estadoPrestamo
+                from libro l
+                join prestamolibro p on l.idLibro = p.idLibro
+                and (date(p.fechaSolicitud) between date(?) and date(?) OR ? = true)
+                and p.estadoSolicitud = 'Aceptada'
+                AND (p.estadoLibro = ? OR ? = 2)
+                join usuario u on u.idUsuario = p.idEstudiante;
+        ", [$request['fechaInicio'], 
+            $request['fechaFin'], 
+            $request['todoFecha'], 
+            $request['estadoLibro'], 
+            $request['estadoLibro']]);
+
+        return $data;
+    }
     /**
      * Show the form for creating a new resource.
      *

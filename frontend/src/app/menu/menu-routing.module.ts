@@ -50,6 +50,10 @@ const routes: Routes = [
       {
         path: 'admin/reporteschart',
         loadChildren: () => import('../admin/reporteschart/reporteschart.module').then( m => m.ReporteschartPageModule)
+      },
+      {
+        path: 'admin/reporte1',
+        loadChildren: () => import('../admin/reporte1/reporte1.module').then( m => m.Reporte1PageModule)
       }
     
 

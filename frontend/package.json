@@ -28,6 +28,7 @@
     "apexcharts": "^3.44.0",
     "ionicons": "^6.0.3",
     "ng-apexcharts": "^1.8.0",
+    "pdfmake": "^0.2.8",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

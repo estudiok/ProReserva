@@ -119,6 +119,9 @@ export class ReservacionService {
   obtenerCantidaCategoria():Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/getcantcategoria`);
   }
-  // 
+  
+  filterDataReserva(data):Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/api/filterreserva`, data)
+  }
 
 }
